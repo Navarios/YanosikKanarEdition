@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.PersistableBundle;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -76,8 +77,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         MarkerOptions mo2;
         for (int i = 0; i < vehicles.size(); i++) {
             mo2 = new MarkerOptions().position(new LatLng(vehicles.get(i).getPosition().latitude, vehicles.get(i).getPosition().longitude)).title(planModelList.get(i).getLinia());
-            marker=vehicles.get(i);
-            marker=mMap.addMarker(mo2);
+            marker = vehicles.get(i);
+            marker = mMap.addMarker(mo2);
         }
     }
 
@@ -119,6 +120,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         criteria.setPowerRequirement(Criteria.POWER_HIGH);
         String provider = locationManager.getBestProvider(criteria, true);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         locationManager.requestLocationUpdates(provider, 1000, 10, this);
     }
 
