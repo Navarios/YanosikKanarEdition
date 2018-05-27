@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TimetableActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Linie tramwajowe dzienne zwykłe"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/button10"
+        android:text="Linie autobusowe dzienne zwykłe"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:onClick="busStopClick1"
+        android:text="1" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_toEndOf="@+id/button3"
+        android:onClick="busStopClick2"
+        android:text="2" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_toEndOf="@+id/button4"
+        android:onClick="busStopClick3"
+        android:text="3" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_toEndOf="@+id/button5"
+        android:onClick="busStopClick4"
+        android:text="4" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_toEndOf="@+id/button6"
+        android:onClick="busStopClick5"
+        android:text="5" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_toEndOf="@+id/button7"
+        android:onClick="busStopClick6"
+        android:text="6" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_toEndOf="@+id/button8"
+        android:onClick="busStopClick7"
+        android:text="7" />
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/button3"
+        android:onClick="busStopClick8"
+        android:text="8" />
+
+    <Button
+        android:id="@+id/button11"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button3"
+        android:layout_toEndOf="@+id/button3"
+        android:onClick="busStopClick9"
+        android:text="9" />
+
+    <Button
+        android:id="@+id/button12"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button3"
+        android:layout_toEndOf="@+id/button4"
+        android:onClick="busStopClick10"
+        android:text="10" />
+
+    <Button
+        android:id="@+id/button13"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button3"
+        android:layout_toEndOf="@+id/button5"
+        android:onClick="busStopClick11"
+        android:text="11" />
+
+    <Button
+        android:id="@+id/button14"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button3"
+        android:layout_toEndOf="@+id/button6"
+        android:onClick="busStopClick12"
+        android:text="12" />
+
+    <Button
+        android:id="@+id/button15"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:onClick="busStopClick51"
+        android:text="51" />
+
+    <Button
+        android:id="@+id/button16"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_toEndOf="@+id/button3"
+        android:onClick="busStopClick52"
+        android:text="52" />
+
+    <Button
+        android:id="@+id/button17"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_toEndOf="@+id/button4"
+        android:onClick="busStopClick53"
+        android:text="53" />
+
+    <Button
+        android:id="@+id/button18"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button15"
+        android:layout_toEndOf="@+id/button5"
+        android:onClick="busStopClick54"
+        android:text="54" />
+
+    <Button
+        android:id="@+id/button19"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_toEndOf="@+id/button6"
+        android:onClick="busStopClick55"
+        android:text="55" />
+
+    <Button
+        android:id="@+id/button20"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/button15"
+        android:layout_toEndOf="@+id/button7"
+        android:onClick="busStopClick56"
+        android:text="56" />
+
+    <Button
+        android:id="@+id/button21"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button15"
+        android:layout_toEndOf="@+id/button8"
+        android:onClick="busStopClick57"
+        android:text="57" />
+
+    <Button
+        android:id="@+id/button22"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/button15"
+        android:onClick="busStopClick58"
+        android:text="58" />
+
+    <Button
+        android:id="@+id/button23"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button15"
+        android:layout_toEndOf="@+id/button3"
+        android:onClick="busStopClick59"
+        android:text="59" />
+
+    <Button
+        android:id="@+id/button24"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button15"
+        android:layout_toEndOf="@+id/button4"
+        android:onClick="busStopClick60"
+        android:text="60" />
+
+    <Button
+        android:id="@+id/button25"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button15"
+        android:layout_toEndOf="@+id/button5"
+        android:onClick="busStopClick61"
+        android:text="61" />
+
+    <Button
+        android:id="@+id/button26"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button15"
+        android:layout_toEndOf="@+id/button6"
+        android:onClick="busStopClick62"
+        android:text="62" />
+
+    <Button
+        android:id="@+id/button27"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button15"
+        android:layout_toEndOf="@+id/button7"
+        android:onClick="busStopClick63"
+        android:text="63" />
+
+    <Button
+        android:id="@+id/button28"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button15"
+        android:layout_toEndOf="@+id/button8"
+        android:onClick="busStopClick64"
+        android:text="64" />
+
+    <Button
+        android:id="@+id/button29"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/button22"
+        android:onClick="busStopClick65"
+        android:text="65" />
+
+    <Button
+        android:id="@+id/button30"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button29"
+        android:layout_toEndOf="@+id/button3"
+        android:onClick="busStopClick66"
+        android:text="66" />
+
+    <Button
+        android:id="@+id/button31"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button22"
+        android:layout_toEndOf="@+id/button4"
+        android:onClick="busStopClick67"
+        android:text="67" />
+
+    <Button
+        android:id="@+id/button32"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button22"
+        android:layout_toEndOf="@+id/button5"
+        android:onClick="busStopClick68"
+        android:text="68" />
+
+    <Button
+        android:id="@+id/button33"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button29"
+        android:layout_toEndOf="@+id/button6"
+        android:onClick="busStopClick69"
+        android:text="69" />
+
+    <Button
+        android:id="@+id/button34"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button29"
+        android:layout_toEndOf="@+id/button7"
+        android:onClick="busStopClick70"
+        android:text="70" />
+
+    <Button
+        android:id="@+id/button35"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button22"
+        android:layout_toEndOf="@+id/button8"
+        android:onClick="busStopClick71"
+        android:text="71" />
+
+    <Button
+        android:id="@+id/button36"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/button29"
+        android:onClick="busStopClick72"
+        android:text="72" />
+
+    <Button
+        android:id="@+id/button37"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button29"
+        android:layout_toEndOf="@+id/button3"
+        android:onClick="busStopClick73"
+        android:text="73" />
+
+    <Button
+        android:id="@+id/button38"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button29"
+        android:layout_toEndOf="@+id/button4"
+        android:onClick="busStopClick74"
+        android:text="74" />
+
+    <Button
+        android:id="@+id/button39"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button29"
+        android:layout_toEndOf="@+id/button5"
+        android:onClick="busStopClick75"
+        android:text="75" />
+
+    <Button
+        android:id="@+id/button40"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button36"
+        android:layout_toEndOf="@+id/button6"
+        android:onClick="busStopClick76"
+        android:text="76" />
+
+    <Button
+        android:id="@+id/button41"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button29"
+        android:layout_toEndOf="@+id/button7"
+        android:onClick="busStopClick77"
+        android:text="77" />
+
+    <Button
+        android:id="@+id/button42"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button29"
+        android:layout_toEndOf="@+id/button8"
+        android:onClick="busStopClick78"
+        android:text="78" />
+
+    <Button
+        android:id="@+id/button43"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/button36"
+        android:onClick="busStopClick79"
+        android:text="79" />
+
+    <Button
+        android:id="@+id/button44"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button36"
+        android:layout_toEndOf="@+id/button3"
+        android:onClick="busStopClick80"
+        android:text="80" />
+
+    <Button
+        android:id="@+id/button45"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button36"
+        android:layout_toEndOf="@+id/button4"
+        android:onClick="busStopClick81"
+        android:text="81" />
+
+    <Button
+        android:id="@+id/button46"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button36"
+        android:layout_toEndOf="@+id/button5"
+        android:onClick="busStopClick82"
+        android:text="82" />
+
+    <Button
+        android:id="@+id/button47"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button36"
+        android:layout_toEndOf="@+id/button6"
+        android:onClick="busStopClick83"
+        android:text="83" />
+
+    <Button
+        android:id="@+id/button48"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button36"
+        android:layout_toEndOf="@+id/button7"
+        android:onClick="busStopClick85"
+        android:text="84" />
+
+    <Button
+        android:id="@+id/button49"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button36"
+        android:layout_toEndOf="@+id/button8"
+        android:onClick="busStopClick85"
+        android:text="85" />
+
+    <Button
+        android:id="@+id/button50"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/button43"
+        android:onClick="busStopClick86"
+        android:text="86" />
+
+    <Button
+        android:id="@+id/button51"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button43"
+        android:layout_toEndOf="@+id/button3"
+        android:onClick="busStopClick87"
+        android:text="87" />
+
+    <Button
+        android:id="@+id/button52"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button50"
+        android:layout_toEndOf="@+id/button4"
+        android:onClick="busStopClick88"
+        android:text="88" />
+
+    <Button
+        android:id="@+id/button53"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button43"
+        android:layout_toEndOf="@+id/button5"
+        android:onClick="busStopClick91"
+        android:text="91" />
+
+    <Button
+        android:id="@+id/button54"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button43"
+        android:layout_toEndOf="@+id/button6"
+        android:onClick="busStopClick93"
+        android:text="93" />
+
+    <Button
+        android:id="@+id/button55"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button43"
+        android:layout_toEndOf="@+id/button7"
+        android:onClick="busStopClick96"
+        android:text="96" />
+
+    <Button
+        android:id="@+id/button56"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button43"
+        android:layout_toEndOf="@+id/button8"
+        android:onClick="busStopClick97"
+        android:text="97" />
+
+    <Button
+        android:id="@+id/button57"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/button50"
+        android:onClick="busStopClick101"
+        android:text="101" />
+
+    <Button
+        android:id="@+id/button58"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button57"
+        android:layout_toEndOf="@+id/button3"
+        android:onClick="busStopClick102"
+        android:text="102" />
+
+    <Button
+        android:id="@+id/button59"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button50"
+        android:layout_toEndOf="@+id/button4"
+        android:onClick="busStopClick103"
+        android:text="103" />
+
+    <Button
+        android:id="@+id/button60"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button57"
+        android:layout_toEndOf="@+id/button5"
+        android:onClick="busStopClick105"
+        android:text="105" />
+
+    <Button
+        android:id="@+id/button61"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button50"
+        android:layout_toEndOf="@+id/button6"
+        android:onClick="busStopClick106"
+        android:text="106" />
+
+    <Button
+        android:id="@+id/button62"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button50"
+        android:layout_toEndOf="@+id/button7"
+        android:onClick="busStopClick107"
+        android:text="107" />
+
+    <Button
+        android:id="@+id/button63"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button57"
+        android:layout_toEndOf="@+id/button8"
+        android:onClick="busStopClick108"
+        android:text="108" />
+
+    <Button
+        android:id="@+id/button64"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/button57"
+        android:onClick="busStopClick109"
+        android:text="109" />
+
+    <Button
+        android:id="@+id/button65"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button57"
+        android:layout_toEndOf="@+id/button3"
+        android:onClick="busStopClick110"
+        android:text="110" />
+
+    <Button
+        android:id="@+id/button66"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button57"
+        android:layout_toEndOf="@+id/button4"
+        android:onClick="busStopClick111"
+        android:text="111" />
+
+    <Button
+        android:id="@+id/button67"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button64"
+        android:layout_toEndOf="@+id/button5"
+        android:onClick="busStopClick121"
+        android:text="121" />
+
+    <Button
+        android:id="@+id/button68"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button64"
+        android:layout_toEndOf="@+id/button6"
+        android:onClick="busStopClick122"
+        android:text="122" />
+
+    <Button
+        android:id="@+id/button69"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button57"
+        android:layout_toEndOf="@+id/button7"
+        android:onClick="busStopClick123"
+        android:text="123" />
+
+    <Button
+        android:id="@+id/button70"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button57"
+        android:layout_toEndOf="@+id/button8"
+        android:onClick="busStopClick124"
+        android:text="124" />
+</RelativeLayout>

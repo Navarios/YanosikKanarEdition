@@ -44,13 +44,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
-    final static int PERMISSION_ALL=1;
-    final static String[] PERMISSIONS={Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION};
+    final static int PERMISSION_ALL = 1;
+    final static String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
     private GoogleMap mMap;
     MarkerOptions mo;
     Marker marker;
+    List<Marker> vehicles;
     LocationManager locationManager;
-    List<Marker> markerList=new ArrayList<>();
+    List<PlanModel> planModelList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,29 +60,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        locationManager=(LocationManager) getSystemService(LOCATION_SERVICE);
-        mo=new MarkerOptions().position(new LatLng(0,0)).title("Twoja lokalizacja");
-        if(Build.VERSION.SDK_INT>=23 && !isPermissionGranted()){
-            requestPermissions(PERMISSIONS,PERMISSION_ALL);
-        }
-        else requestLocation();
-        if(!isLocationEnabled())
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        mo = new MarkerOptions().position(new LatLng(0, 0)).title("Twoja lokalizacja");
+        if (Build.VERSION.SDK_INT >= 23 && !isPermissionGranted()) {
+            requestPermissions(PERMISSIONS, PERMISSION_ALL);
+        } else requestLocation();
+        if (!isLocationEnabled())
             showAlert(1);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        marker=mMap.addMarker(mo);
+        marker = mMap.addMarker(mo);
+        MarkerOptions mo2;
+        for (int i = 0; i < vehicles.size(); i++) {
+            mo2 = new MarkerOptions().position(new LatLng(vehicles.get(i).getPosition().latitude, vehicles.get(i).getPosition().longitude)).title(planModelList.get(i).getLinia());
+            marker=vehicles.get(i);
+            marker=mMap.addMarker(mo2);
+        }
     }
 
 
     @Override
     public void onLocationChanged(Location location) {
-        LatLng myCoordinates=new LatLng(location.getLatitude(),location.getLongitude());
+        LatLng myCoordinates = new LatLng(location.getLatitude(), location.getLongitude());
+        LatLng vehiclesCoordinates;
         marker.setPosition(myCoordinates);
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myCoordinates,15));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myCoordinates, 15));
         new JSONTask().execute("https://www.zditm.szczecin.pl/json/pojazdy.inc.php");
+        vehicles = new ArrayList<>();
+        for (int i = 0; i < planModelList.size(); i++) {
+            vehiclesCoordinates = new LatLng(Double.parseDouble(planModelList.get(i).getLat()), Double.parseDouble(planModelList.get(i).getLon()));
+            marker.setPosition(vehiclesCoordinates);
+            vehicles.add(marker);
+        }
 
 
     }
@@ -101,15 +114,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    private void requestLocation(){
-        Criteria criteria=new Criteria();
+    private void requestLocation() {
+        Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         criteria.setPowerRequirement(Criteria.POWER_HIGH);
-        String provider= locationManager.getBestProvider(criteria,true);
-        locationManager.requestLocationUpdates(provider,1000,10,this);
+        String provider = locationManager.getBestProvider(criteria, true);
+        locationManager.requestLocationUpdates(provider, 1000, 10, this);
     }
 
-    private boolean isLocationEnabled(){
+    private boolean isLocationEnabled() {
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
@@ -164,7 +177,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         requestLocation();
     }
 
-    public class JSONTask extends AsyncTask<String, String,  List<PlanModel>> {
+    public class JSONTask extends AsyncTask<String, String, List<PlanModel>> {
 
         @Override
         protected List<PlanModel> doInBackground(String... params) {
@@ -191,20 +204,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 JSONArray parentArray = new JSONArray(finalJson);
 
-                List<PlanModel> planModelList = new ArrayList<>();
+                planModelList = new ArrayList<>();
 
-                StringBuffer finalBufferedData=new StringBuffer();
+                StringBuffer finalBufferedData = new StringBuffer();
 
                 for (int i = 0; i < parentArray.length(); i++) {
-                        JSONObject finalObject = parentArray.getJSONObject(i);
-                        PlanModel planModel = new PlanModel();
-                        planModel.setLinia(finalObject.getString("linia"));
-                        planModel.setLat(finalObject.getString("lat"));
-                        planModel.setLon(finalObject.getString("lon"));
+                    JSONObject finalObject = parentArray.getJSONObject(i);
+                    PlanModel planModel = new PlanModel();
+                    planModel.setLinia(finalObject.getString("linia"));
+                    planModel.setLat(finalObject.getString("lat"));
+                    planModel.setLon(finalObject.getString("lon"));
 
-                        planModelList.add(planModel);
+                    planModelList.add(planModel);
 
-                    }
+
+                }
 
                 return planModelList;
 
@@ -229,7 +243,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         @Override
-        protected void onPostExecute( List<PlanModel> result) {
+        protected void onPostExecute(List<PlanModel> result) {
             super.onPostExecute(result);
         }
     }

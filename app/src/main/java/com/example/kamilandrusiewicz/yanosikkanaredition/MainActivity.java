@@ -23,4 +23,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PlanActivity.class);
         startActivity(intent);
     }
+    public void goToTimetableActivity(View view) {
+        Intent intent = new Intent(this, TimetableActivity.class);
+        startActivity(intent);
+    }
 }
