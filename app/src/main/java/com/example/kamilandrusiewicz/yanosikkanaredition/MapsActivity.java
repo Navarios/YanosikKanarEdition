@@ -24,6 +24,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -58,12 +60,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        searchLine=(EditText)findViewById(R.id.searchLine2);
+        searchLine = (EditText) findViewById(R.id.searchLine2);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        mo = new MarkerOptions().position(new LatLng(53.438056, 14.542222)).title("Twoja lokalizacja");
+        mo = new MarkerOptions().position(new LatLng(53.438056, 14.542222)).title("Twoja lokalizacja").icon(BitmapDescriptorFactory.fromResource(R.drawable.location_person_black_3_48dp));
         if (Build.VERSION.SDK_INT >= 23 && !isPermissionGranted()) {
             requestPermissions(PERMISSIONS, PERMISSION_ALL);
         } else requestLocation();
@@ -81,7 +83,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-        new JSONTask().execute("https://www.zditm.szczecin.pl/json/pojazdy.inc.php");
+        //new JSONTask().execute("https://www.zditm.szczecin.pl/json/pojazdy.inc.php");
         mMap.clear();
         LatLng myCoordinates = new LatLng(location.getLatitude(), location.getLongitude());
         marker = mMap.addMarker(mo);
@@ -89,26 +91,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myCoordinates, 15));
 
 
+        PlanModel planModel = new PlanModel();
+        planModelList = new ArrayList<>();
+        planModel.setLat("53.443459");
+        planModel.setLon("14.547131");
+        planModel.setLinia("12");
+        planModel.setZ("Niemcewicza");
+        planModel.setD("Odzieżowa");
+        planModel.setPunktualnosc1("o czasie");
+        planModelList.add(planModel);
+        PlanModel planMode2 = new PlanModel();
+        planMode2.setLat("53.443024");
+        planMode2.setLon("14.548869");
+        planMode2.setZ("Kołłątaja");
+        planMode2.setD("Teatr Letni");
+        planMode2.setPunktualnosc1("-1");
+        planMode2.setLinia("60");
+        planModelList.add(planMode2);
 
-
-//        PlanModel planModel = new PlanModel();
-//        planModelList = new ArrayList<>();
-//        planModel.setLat("53");
-//        planModel.setLon("14");
-//        planModel.setLinia("12");
-//        planModelList.add(planModel);
-//        PlanModel planMode2 = new PlanModel();
-//        planMode2.setLat("53.1");
-//        planMode2.setLon("14.1");
-//        planMode2.setLinia("13");
-//        planModelList.add(planMode2);
-
-        if(planModelList!=null) {
+        if (planModelList != null) {
 
             for (int i = 0; i < planModelList.size(); i++) {
                 options.position(new LatLng(Double.parseDouble(planModelList.get(i).getLat()), Double.parseDouble(planModelList.get(i).getLon())));
-                options.title("Trasa: "+planModelList.get(i).getLinia());
-                options.snippet("Z: "+ planModelList.get(i).getZ()+ " do: "+ planModelList.get(i).getD()+" punktualnie: " +planModelList.get(i).getPunktualnosc1());
+                options.title("Linia: " + planModelList.get(i).getLinia());
+                options.snippet("Z: " + planModelList.get(i).getZ() + " | Do: " + planModelList.get(i).getD() + " | Punktualnie: " + planModelList.get(i).getPunktualnosc1());
+                if (Integer.parseInt(planModelList.get(i).getLinia()) > 12) {
+                    options.icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_black_24dp));
+                } else {
+                    options.icon(BitmapDescriptorFactory.fromResource(R.drawable.tram_black_24dp));
+                }
                 mMap.addMarker(options);
             }
         }
@@ -235,34 +246,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 StringBuffer finalBufferedData = new StringBuffer();
 
 
-                    for (int i = 0; i < parentArray.length(); i++) {
-                        if(searchLine.getText().toString().length()==0) {
-                            JSONObject finalObject = parentArray.getJSONObject(i);
-                            PlanModel planModel = new PlanModel();
+                for (int i = 0; i < parentArray.length(); i++) {
+                    if (searchLine.getText().toString().length() == 0) {
+                        JSONObject finalObject = parentArray.getJSONObject(i);
+                        PlanModel planModel = new PlanModel();
+                        planModel.setLinia(finalObject.getString("linia"));
+                        planModel.setLat(finalObject.getString("lat"));
+                        planModel.setLon(finalObject.getString("lon"));
+                        planModel.setZ(finalObject.getString("z"));
+                        planModel.setD(finalObject.getString("do"));
+                        planModel.setPunktualnosc1(finalObject.getString("punktualnosc1"));
+
+                        planModelList.add(planModel);
+                    } else {
+                        JSONObject finalObject = parentArray.getJSONObject(i);
+                        PlanModel planModel = new PlanModel();
+                        if (searchLine.getText().toString().equals(finalObject.getString("linia"))) {
                             planModel.setLinia(finalObject.getString("linia"));
                             planModel.setLat(finalObject.getString("lat"));
                             planModel.setLon(finalObject.getString("lon"));
                             planModel.setZ(finalObject.getString("z"));
                             planModel.setD(finalObject.getString("do"));
                             planModel.setPunktualnosc1(finalObject.getString("punktualnosc1"));
-
-                            planModelList.add(planModel);
                         }
-                        else {
-                            JSONObject finalObject = parentArray.getJSONObject(i);
-                            PlanModel planModel = new PlanModel();
-                            if(searchLine.getText().toString().equals(finalObject.getString("linia")))
-                            {
-                                planModel.setLinia(finalObject.getString("linia"));
-                                planModel.setLat(finalObject.getString("lat"));
-                                planModel.setLon(finalObject.getString("lon"));
-                                planModel.setZ(finalObject.getString("z"));
-                                planModel.setD(finalObject.getString("do"));
-                                planModel.setPunktualnosc1(finalObject.getString("punktualnosc1"));
-                            }
-                        }
-
                     }
+
+                }
 
 
                 return planModelList;

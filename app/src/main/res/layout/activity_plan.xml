@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_train_black_48dp" />
+            app:srcCompat="@drawable/linia_black_96dp" />
 
         <EditText
             android:id="@+id/searchLine"
@@ -40,7 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_compare_arrows_black_48dp" />
+            app:srcCompat="@drawable/arrows" />
 
         <EditText
             android:id="@+id/searchStop"

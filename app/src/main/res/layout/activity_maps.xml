@@ -32,15 +32,14 @@
             <LinearLayout
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/imageView3"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_train_black_48dp" />
+                    android:src="@drawable/linia_black_96dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -52,10 +51,10 @@
                 <EditText
                     android:id="@+id/searchLine2"
                     android:layout_width="match_parent"
-                    android:inputType="text"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:hint="Wyszukaj linię" />
+                    android:hint="Wyszukaj linię"
+                    android:inputType="text" />
 
             </LinearLayout>
 
@@ -65,13 +64,16 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/relocate"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     android:onClick="relocateGPS"
-                    android:src="@android:drawable/ic_menu_mylocation" />
+                    android:src="@drawable/gps" /><![CDATA[
+
+                />
+            ]]>
             </LinearLayout>
 
         </LinearLayout>
