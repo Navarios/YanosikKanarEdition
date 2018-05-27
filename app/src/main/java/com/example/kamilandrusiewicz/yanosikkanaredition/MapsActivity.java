@@ -11,15 +11,12 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.PersistableBundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.kamilandrusiewicz.yanosikkanaredition.Models.PlanModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -50,9 +47,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     MarkerOptions mo;
     Marker marker;
-    List<Marker> vehicles;
     LocationManager locationManager;
-    List<PlanModel> planModelList;
+    private List<PlanModel> planModelList;
+    private MarkerOptions options = new MarkerOptions();
+    private ArrayList<LatLng> latLangs = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,28 +73,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         marker = mMap.addMarker(mo);
-        MarkerOptions mo2;
-        for (int i = 0; i < vehicles.size(); i++) {
-            mo2 = new MarkerOptions().position(new LatLng(vehicles.get(i).getPosition().latitude, vehicles.get(i).getPosition().longitude)).title(planModelList.get(i).getLinia());
-            marker = vehicles.get(i);
-            marker = mMap.addMarker(mo2);
+
+        PlanModel planModel = new PlanModel();
+        planModelList = new ArrayList<>();
+        planModel.setLat("53");
+        planModel.setLon("14");
+        planModel.setLinia("12");
+        planModelList.add(planModel);
+        PlanModel planMode2 = new PlanModel();
+        planMode2.setLat("53.1");
+        planMode2.setLon("14.1");
+        planMode2.setLinia("13");
+        planModelList.add(planMode2);
+
+
+        if(planModelList!=null) {
+            for (int i = 0; i < planModelList.size(); i++) {
+                    options.position(new LatLng(Double.parseDouble(planModelList.get(i).getLat()), Double.parseDouble(planModelList.get(i).getLon())));
+                    options.title("Trasa: "+planModelList.get(i).getLinia());
+                    options.snippet("Z: "+ planModelList.get(i).getZ()+ " do: "+ planModelList.get(i).getD()+" punktualnie: " +planModelList.get(i).getPunktualnosc1());
+                    googleMap.addMarker(options);
+            }
         }
+
     }
 
 
     @Override
     public void onLocationChanged(Location location) {
         LatLng myCoordinates = new LatLng(location.getLatitude(), location.getLongitude());
-        LatLng vehiclesCoordinates;
+
         marker.setPosition(myCoordinates);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myCoordinates, 15));
-        new JSONTask().execute("https://www.zditm.szczecin.pl/json/pojazdy.inc.php");
-        vehicles = new ArrayList<>();
-        for (int i = 0; i < planModelList.size(); i++) {
-            vehiclesCoordinates = new LatLng(Double.parseDouble(planModelList.get(i).getLat()), Double.parseDouble(planModelList.get(i).getLon()));
-            marker.setPosition(vehiclesCoordinates);
-            vehicles.add(marker);
-        }
+        //new JSONTask().execute("https://www.zditm.szczecin.pl/json/pojazdy.inc.php");
+
 
 
     }
@@ -225,6 +236,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     planModel.setLinia(finalObject.getString("linia"));
                     planModel.setLat(finalObject.getString("lat"));
                     planModel.setLon(finalObject.getString("lon"));
+                    planModel.setZ(finalObject.getString("z"));
+                    planModel.setD(finalObject.getString("do"));
+                    planModel.setPunktualnosc1(finalObject.getString("punktualnosc1"));
 
                     planModelList.add(planModel);
 
