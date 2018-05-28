@@ -15,6 +15,7 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -60,6 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        new JSONTask().execute("https://www.zditm.szczecin.pl/json/pojazdy.inc.php");
         searchLine = (EditText) findViewById(R.id.searchLine2);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -76,49 +78,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-
     }
 
 
     @Override
     public void onLocationChanged(Location location) {
-        //new JSONTask().execute("https://www.zditm.szczecin.pl/json/pojazdy.inc.php");
         mMap.clear();
+        new JSONTask().execute("https://www.zditm.szczecin.pl/json/pojazdy.inc.php");
         LatLng myCoordinates = new LatLng(location.getLatitude(), location.getLongitude());
         marker = mMap.addMarker(mo);
         marker.setPosition(myCoordinates);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myCoordinates, 15));
 
-
-        PlanModel planModel = new PlanModel();
-        planModelList = new ArrayList<>();
-        planModel.setLat("53.443459");
-        planModel.setLon("14.547131");
-        planModel.setLinia("12");
-        planModel.setZ("Niemcewicza");
-        planModel.setD("Odzieżowa");
-        planModel.setPunktualnosc1("o czasie");
-        planModelList.add(planModel);
-        PlanModel planMode2 = new PlanModel();
-        planMode2.setLat("53.443024");
-        planMode2.setLon("14.548869");
-        planMode2.setZ("Kołłątaja");
-        planMode2.setD("Teatr Letni");
-        planMode2.setPunktualnosc1("-1");
-        planMode2.setLinia("60");
-        planModelList.add(planMode2);
-
         if (planModelList != null) {
 
             for (int i = 0; i < planModelList.size(); i++) {
                 options.position(new LatLng(Double.parseDouble(planModelList.get(i).getLat()), Double.parseDouble(planModelList.get(i).getLon())));
-                options.title("Linia: " + planModelList.get(i).getLinia());
-                options.snippet("Z: " + planModelList.get(i).getZ() + " | Do: " + planModelList.get(i).getD() + " | Punktualnie: " + planModelList.get(i).getPunktualnosc1());
-                if (Integer.parseInt(planModelList.get(i).getLinia()) > 12) {
-                    options.icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_black_24dp));
+                options.title("Linia: " + planModelList.get(i).getLinia() + " | Opóźnienie: " + planModelList.get(i).getPunktualnosc1());
+                options.snippet("Z: " + planModelList.get(i).getZ() + " | Do: " + planModelList.get(i).getD());
+                if (TextUtils.isDigitsOnly(planModelList.get(i).getLinia())) {
+                    if (Integer.parseInt(planModelList.get(i).getLinia()) > 12) {
+                        options.icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_black_24dp));
+                    } else {
+                        options.icon(BitmapDescriptorFactory.fromResource(R.drawable.tram_black_24dp));
+                    }
                 } else {
-                    options.icon(BitmapDescriptorFactory.fromResource(R.drawable.tram_black_24dp));
+                    options.icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_black_24dp));
                 }
                 mMap.addMarker(options);
             }
@@ -211,6 +196,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void relocateGPS(View view) {
         mMap.clear();
+        new JSONTask().execute("https://www.zditm.szczecin.pl/json/pojazdy.inc.php");
         requestLocation();
     }
 
@@ -268,11 +254,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             planModel.setZ(finalObject.getString("z"));
                             planModel.setD(finalObject.getString("do"));
                             planModel.setPunktualnosc1(finalObject.getString("punktualnosc1"));
+
+                            planModelList.add(planModel);
                         }
                     }
-
                 }
-
 
                 return planModelList;
 
