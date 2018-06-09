@@ -47,7 +47,10 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".PlanActivity" />
-        <activity android:name=".TimetableActivity"></activity>
+        <activity android:name=".TimetableActivity" />
+        <activity
+            android:name=".MapsActivity2"
+            android:label="@string/title_activity_maps2"></activity>
     </application>
 
 </manifest>

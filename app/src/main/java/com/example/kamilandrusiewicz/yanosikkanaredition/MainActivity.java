@@ -27,4 +27,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, TimetableActivity.class);
         startActivity(intent);
     }
+
+    public void goToMapsActivity2(View view) {
+        Intent intent = new Intent(this, MapsActivity2.class);
+        startActivity(intent);
+    }
+
+    public void killApp(View view){
+        System.exit(0);
+    }
 }
