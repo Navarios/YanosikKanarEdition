@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.kamilandrusiewicz.yanosikkanaredition.Kanar.KanarActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -33,7 +35,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goToKanarActivity(View view) {
+        Intent intent = new Intent(this, KanarActivity.class);
+        startActivity(intent);
+    }
+
+
     public void killApp(View view){
         System.exit(0);
     }
+
+
 }

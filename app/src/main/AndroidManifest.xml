@@ -51,6 +51,8 @@
         <activity
             android:name=".MapsActivity2"
             android:label="@string/title_activity_maps2"></activity>
+        <activity android:name=".Kanar.KanarActivity" />
+        <activity android:name=".Kanar.DodajWpis"/>
     </application>
 
 </manifest>

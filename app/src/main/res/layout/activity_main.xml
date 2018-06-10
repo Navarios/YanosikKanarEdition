@@ -78,7 +78,8 @@
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/kanar2" />
+        app:srcCompat="@drawable/kanar2"
+        android:onClick="goToKanarActivity"/>
 
     <ImageView
         android:id="@+id/imageView7"
